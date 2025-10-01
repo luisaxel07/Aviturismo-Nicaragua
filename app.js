@@ -1,6 +1,5 @@
 // app.js
 
-// ------- Datos de ejemplo (puedes migrarlos a Firebase luego) -------
 const birds = [
   {
     id: 1,
@@ -76,7 +75,7 @@ const birds = [
   }
 
 ];
-// Agrega este CSS para asegurar que las imágenes de aves se ubiquen bien en su contenedor
+// Agregue este CSS para asegurar que las imágenes de aves se ubiquen bien en su contenedor
 const style = document.createElement('style');
 style.innerHTML = `
   .card img {

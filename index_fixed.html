@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title style="imag">Aviturismo Nicaragua - Plataforma de Conservación y Turismo Responsable</title>
+  <meta name="description" content="Plataforma de aviturismo en Nicaragua: reservas naturales, observación de aves, turismo responsable y conservación.">
+  <meta name="keywords" content="aviturismo, aves, reservas naturales, Nicaragua, ecoturismo, conservación">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-sans bg-gradient-to-br from-blue-50 to-blue-200 text-gray-800">
+  <!-- Header -->
+  <header class="bg-green-800 p-4 fixed top-0 left-0 w-full z-50 shadow-lg">
+    <nav class="flex justify-between items-center max-w-6xl mx-auto">
+      <img src="logo de hakaton.png" alt="Logo" id="logohack" width="10%" height="10%">
+      <h2 class="text-white text-xl font-bold">Aviturismo Nicaragua</h2>
+      <div class="hidden md:flex space-x-2 items-center">
+        <a href="#home" onclick="showSection('home')" class="nav-link">Inicio</a>
+        <a href="#birds" onclick="showSection('birds')" class="nav-link">Aves</a>
+        <a href="#reserves" onclick="showSection('reserves')" class="nav-link">Reservas</a>
+        <a href="#calendar" onclick="showSection('calendar')" class="nav-link">Calendario</a>
+        <a href="#reservations" onclick="showSection('reservations')" class="nav-link hidden" id="nav-reservations">Reservas</a>
+        <a href="#education" onclick="showSection('education')" class="nav-link">Educación</a>
+        <a href="#register" onclick="showSection('register')" class="nav-link" id="nav-register">Registro</a>
+        <a href="#login" onclick="showSection('login')" class="nav-link" id="nav-login">Login</a>
+        <span id="user-info" class="hidden px-2 py-1 text-green-200">
+          Hola, <span id="username-display"></span>
+          <button onclick="logout()" class="ml-2 bg-red-500 px-2 py-1 rounded text-white">Cerrar sesión</button>
+        </span>
+      </div>
+      <!-- Menú móvil -->
+      <button class="md:hidden text-white text-2xl" onclick="toggleMenu()" aria-label="Abrir menú">☰</button>
+    </nav>
+    <div id="mobile-menu" class="hidden flex flex-col space-y-2 mt-2 md:hidden px-4">
+      <a href="#home" onclick="showSection('home')" class="nav-link">Inicio</a>
+      <a href="#birds" onclick="showSection('birds')" class="nav-link">Aves</a>
+      <a href="#reserves" onclick="showSection('reserves')" class="nav-link">Reservas</a>
+      <a href="#calendar" onclick="showSection('calendar')" class="nav-link">Calendario</a>
+      <a href="#reservations" onclick="showSection('reservations')" class="nav-link hidden" id="mobile-nav-reservations">Reservas</a>
+      <a href="#education" onclick="showSection('education')" class="nav-link">Educación</a>
+      <a href="#register" onclick="showSection('register')" class="nav-link" id="mobile-nav-register">Registro</a>
+      <a href="#login" onclick="showSection('login')" class="nav-link" id="mobile-nav-login">Login</a>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="max-w-6xl mx-auto p-6 pt-28">
+    <!-- Sección Inicio -->
+    <section id="home" class="mb-12">
+      <div class="hero-section">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Descubre Nicaragua con el Aviturismo</h1>
+        <p class="mb-6">Explora la biodiversidad única de Nicaragua a través de nuestras reservas naturales, observa aves exóticas y aprende sobre conservación con guías locales certificados.</p>
+        <!-- Carrusel de imágenes -->
+        <div class="relative w-full max-w-xl mx-auto">
+          <div id="carousel-images" class="overflow-hidden rounded-lg shadow-lg flex items-center justify-center bg-white" style="height: 320px;">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bc982d98-7b85-4cec-acea-962721124563.png" alt="Vista panorámica de la Reserva Biológica Indio Maíz con aves exóticas" class="w-full h-64 object-cover carousel-img" />
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/914c8160-2d19-4763-ae20-691efacd0208.png" alt="Aviturismo responsable" class="w-full h-64 object-cover carousel-img hidden" />
+            <img src="https://panorama-tr.org/wp-content/uploads/2016/06/72852.jpg" alt="Aves migratorias" class="w-full h-64 object-cover carousel-img hidden" />
+            <img src="https://canal2tv.com/wp-content/uploads/2024/12/ecoturismo-nicaragua-vacaciones-ano2-1200x675.jpg" alt="Aves migratorias" class="w-full h-64 object-cover carousel-img hidden" />
+          </div>
+          <script>
+            // Carrusel simple JS con auto-slide
+            document.addEventListener('DOMContentLoaded', function () {
+              const images = document.querySelectorAll('.carousel-img');
+              let current = 0;
+              let intervalId;
+              let isSliding = false;
+
+              function showImage(idx, direction = 1) {
+              if (isSliding) return;
+              isSliding = true;
+              const prev = current;
+              const next = idx;
+              images.forEach((img, i) => {
+                img.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right', 'hidden');
+                if (i === prev) {
+                img.classList.add(direction > 0 ? 'slide-out-left' : 'slide-out-right');
+                } else if (i === next) {
+                img.classList.add(direction > 0 ? 'slide-in-right' : 'slide-in-left');
+                } else {
+                img.classList.add('hidden');
+                }
+              });
+              setTimeout(() => {
+                images.forEach((img, i) => img.classList.toggle('hidden', i !== next));
+                images.forEach((img) => {
+                img.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+                });
+                isSliding = false;
+              }, 500);
+              }
+
+              function nextImage() {
+              const next = (current + 1) % images.length;
+              showImage(next, 1);
+              current = next;
+              }
+
+              function prevImage() {
+              const next = (current - 1 + images.length) % images.length;
+              showImage(next, -1);
+              current = next;
+              }
+
+              document.getElementById('carousel-prev').onclick = function () {
+              prevImage();
+              resetInterval();
+              };
+              document.getElementById('carousel-next').onclick = function () {
+              nextImage();
+              resetInterval();
+              };
+
+              function startInterval() {
+              intervalId = setInterval(nextImage, 3500);
+              }
+
+              function resetInterval() {
+              clearInterval(intervalId);
+              startInterval();
+              }
+
+              // Add sliding CSS
+              const style = document.createElement('style');
+              style.innerHTML = `
+              .slide-in-left { animation: slideInLeft 0.5s forwards; }
+              .slide-in-right { animation: slideInRight 0.5s forwards; }
+              .slide-out-left { animation: slideOutLeft 0.5s forwards; }
+              .slide-out-right { animation: slideOutRight 0.5s forwards; }
+              @keyframes slideInLeft {
+                from { transform: translateX(-100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+              }
+              @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+              }
+              @keyframes slideOutLeft {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(-100%); opacity: 0; }
+              }
+              @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+              }
+              `;
+              document.head.appendChild(style);
+
+              showImage(current, 1);
+              startInterval();
+            });
+          </script>
+          <button id="carousel-prev" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition" aria-label="Anterior">‹</button>
+          <button id="carousel-next" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition" aria-label="Siguiente">›</button>
+        </div>
+        <script>
+          // Carrusel simple JS
+          document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.carousel-img');
+            let current = 0;
+            function showImage(idx) {
+              images.forEach((img, i) => img.classList.toggle('hidden', i !== idx));
+            }
+            document.getElementById('carousel-prev').onclick = function () {
+              current = (current - 1 + images.length) % images.length;
+              showImage(current);
+            };
+            document.getElementById('carousel-next').onclick = function () {
+              current = (current + 1) % images.length;
+              showImage(current);
+            };
+            showImage(current);
+          });
+        </script></div>
+      </div>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">Catálogo de Aves</h3>
+          <p>Descubre especies endémicas y migratorias con fotos, descripciones y mapas de distribución.</p>
+          <button onclick="showSection('birds')" class="btn-primary mt-4">Ver Catálogo</button>
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">Reservas Naturales</h3>
+          <p>Información de áreas protegidas habilitadas para aviturismo y actividades ecoturísticas.</p>
+          <button onclick="showSection('reserves')" class="btn-primary mt-4">Explorar Reservas</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Aves -->
+    <section id="birds" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Catálogo Digital de Aves</h2>
+      <div class="flex flex-col md:flex-row gap-4 mb-6">
+        <select id="bird-filter" class="px-3 py-2 border rounded">
+          <option value="all">Todas</option>
+          <option value="endemic">Endémicas</option>
+          <option value="migratory">Migratorias</option>
+          <option value="resident">Residente</option>
+        </select>
+        <input id="bird-search" class="px-3 py-2 border rounded flex-1" placeholder="Buscar por nombre..." />
+      </div>
+      <div id="birds-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- Sección Reservas Naturales -->
+    <section id="reserves" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Reservas Naturales Habilitadas</h2>
+      <div id="reserves-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- Sección Calendario -->
+    <section id="calendar" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Calendario de Temporadas y Eventos</h2>
+      <div class="card">
+        <h3 class="text-xl font-bold mb-4">Temporadas de Avistamiento</h3>
+        <ul class="list-disc pl-6">
+          <li><strong>Migratorias:</strong> Octubre a Marzo.</li>
+          <li><strong>Endémicas:</strong> Todo el año.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="text-xl font-bold mb-4">Eventos</h3>
+        <div id="events-container"></div>
+      </div>
+    </section>
+
+    <!-- Sección Reservas (booking) -->
+    <section id="reservations" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Reservar Visita Guiada</h2>
+      <p id="login-required" class="text-red-600 mb-4">Debes iniciar sesión para realizar reservas.</p>
+
+      <form id="reservation-form" class="card hidden">
+        <div class="form-group mb-4">
+          <label for="reserve-select">Selecciona Reserva Natural:</label>
+          <select id="reserve-select" required></select>
+        </div>
+        <div class="form-group mb-4">
+          <label for="guide-select">Selecciona Guía Certificado:</label>
+          <select id="guide-select" required></select>
+        </div>
+        <div class="form-group mb-4">
+          <label for="reservation-date">Fecha de la visita:</label>
+          <input type="date" id="reservation-date" required />
+        </div>
+        <div class="form-group mb-4">
+          <label for="additional-notes">Notas adicionales:</label>
+          <textarea id="additional-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Reservar</button>
+      </form>
+
+      <div id="reservation-message" class="mt-4"></div>
+
+      <div id="user-reservations" class="mt-6 hidden">
+        <h3 class="text-xl font-bold mb-4">Mis Reservas</h3>
+        <div id="reservations-list"></div>
+      </div>
+    </section>
+
+    <!-- Sección Educación -->
+    <section id="education" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Conservación y Buenas Prácticas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">Importancia de la Conservación de Aves</h3>
+          <p>Las aves son indicadores de la salud ambiental. Practica aviturismo responsable para proteger ecosistemas únicos en Nicaragua.</p>
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/914c8160-2d19-4763-ae20-691efacd0208.png" alt="Ilustración educativa aviturismo responsable" class="rounded-lg shadow mt-4 w-full h-60 object-cover" />
+        </div>
+        <div class="card">
+          <h3 class="text-xl font-bold mb-2">Buenas Prácticas</h3>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Mantén distancia segura de las aves.</li>
+            <li>Usa binoculares en lugar de acercarte.</li>
+            <li>Respeta senderos y áreas designadas.</li>
+            <li>Participa en conteos ciudadanos.</li>
+            <li>Elige guías locales certificados.</li>
+          </ul>
+          <button onclick="showSection('birds')" class="btn-secondary mt-4">Explora Especies</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Registro -->
+    <section id="register" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Registro de Usuario</h2>
+      <form id="register-form" class="card">
+        <div class="form-group mb-4">
+          <label for="reg-username">Nombre de usuario:</label>
+          <input type="text" id="reg-username" required />
+        </div>
+        <div class="form-group mb-4">
+          <label for="reg-email">Correo electrónico:</label>
+          <input type="email" id="reg-email" required />
+        </div>
+        <div class="form-group mb-4">
+          <label for="reg-password">Contraseña (mín. 6 caracteres):</label>
+          <input type="password" id="reg-password" required minlength="6" />
+        </div>
+        <div class="form-group mb-4">
+          <label for="reg-password2">Confirmar contraseña:</label>
+          <input type="password" id="reg-password2" required minlength="6" />
+        </div>
+        <button type="submit" class="btn-primary">Registrar</button>
+      </form>
+      <div id="register-message" class="mt-4"></div>
+    </section>
+
+    <!-- Sección Login -->
+    <section id="login" class="hidden">
+      <h2 class="text-2xl font-bold mb-6">Iniciar Sesión</h2>
+      <form id="login-form" class="card">
+        <div class="form-group mb-4">
+          <label for="login-username">Nombre de usuario:</label>
+          <input type="text" id="login-username" required />
+        </div>
+        <div class="form-group mb-4">
+          <label for="login-password">Contraseña:</label>
+          <input type="password" id="login-password" required />
+        </div>
+        <button type="submit" class="btn-primary">Iniciar Sesión</button>
+      </form>
+      <div id="login-message" class="mt-4"></div>
+    </section>
+  </main>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/50588256931" target="_blank" class="fixed bottom-6 right-6 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition" aria-label="Contáctanos por WhatsApp">💬</a>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white text-center py-4">
+    <p>© 2024 Aviturismo Nicaragua. Plataforma dedicada a la conservación y el turismo responsable.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script defer src="app.js"></script>
+
+
+</body>
+</html>
